@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{PostsController,AdminController};
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',[PostsController::class,'show'])->name('posts.show');
+
+Route::prefix('/admin')->group(function(){
+
+     Route::get('/add',[AdminController::class,'create'])->name('admin.posts.add');
 });
