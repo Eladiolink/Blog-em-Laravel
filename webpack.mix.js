@@ -24,4 +24,3 @@ mix.scripts('node_modules/bootstrap/dist/css/bootstrap.min.css','public/css/boot
    mix.copy('node_modules/tinymce/jquery.tinymce.min.js', 'public/node_modules/tinymce/jquery.tinymce.min.js');
    mix.copy('node_modules/tinymce/tinymce.js', 'public/node_modules/tinymce/tinymce.js');
    mix.copy('node_modules/tinymce/tinymce.min.js', 'public/node_modules/tinymce/tinymce.min.js');
-   mix.copy('node_modules/tinymce/pt_BR.js', 'public/node_modules/tinymce/pt_BR.js');
