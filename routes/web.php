@@ -19,4 +19,5 @@ Route::get('/',[PostsController::class,'show'])->name('posts.show');
 Route::prefix('/admin')->group(function(){
 
      Route::get('/add',[AdminController::class,'create'])->name('admin.posts.add');
+     Route::post('/add',[AdminController::class,'store'])->name('admin.posts.store');
 });
