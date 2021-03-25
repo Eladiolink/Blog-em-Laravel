@@ -17,7 +17,9 @@ use App\Http\Controllers\{PostsController,AdminController};
 Route::get('/',[PostsController::class,'show'])->name('posts.show');
 
 Route::prefix('/admin')->group(function(){
-
+     Route::get('/',[AdminController::class,'show'])->name('admin.show');
      Route::get('/add',[AdminController::class,'create'])->name('admin.posts.add');
+     Route::get('/edit/{id}',[AdminController::class,'edit'])->name('admin.posts.edit');
      Route::post('/add',[AdminController::class,'store'])->name('admin.posts.store');
-});
+     
+});  
