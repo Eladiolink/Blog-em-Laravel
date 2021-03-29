@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categories;
 use Illuminate\Support\Str;
-use  App\Models\Posts;
+use Illuminate\Support\Facades\Storage;
+use  App\Models\{Posts,PostCategory};
 
 class AdminController extends Controller
 {   
@@ -34,5 +35,14 @@ class AdminController extends Controller
 
         return redirect()->route('posts.show');
      
+    }
+
+    public function destroy($id){
+            $post= Posts::where('id',$id)->first();
+            PostCategory::where('post_id',$id)->delete();
+            Posts::where('id',$id)->delete();
+            Storage::delete("posts/".$post->image);
+   
+            return redirect()->back();
     }
 }
