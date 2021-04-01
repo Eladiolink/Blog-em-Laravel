@@ -22,5 +22,5 @@ Route::prefix('/admin')->group(function(){
      Route::get('/edit/{id}',[AdminController::class,'edit'])->name('admin.posts.edit');
      Route::post('/add',[AdminController::class,'store'])->name('admin.posts.store');
      Route::delete('/del/{id}',[AdminController::class,'destroy'])->name('admin.posts.destroy');
-     
+     Route::put('/update/{id}',[AdminController::class,'update'])->name('admin.posts.update');
 });  
