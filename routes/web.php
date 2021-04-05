@@ -18,9 +18,22 @@ Route::get('/',[PostsController::class,'show'])->name('posts.show');
 
 Route::prefix('/admin')->group(function(){
      Route::get('/',[AdminController::class,'show'])->name('admin.show');
+
      Route::get('/add',[AdminController::class,'create'])->name('admin.posts.add');
-     Route::get('/edit/{id}',[AdminController::class,'edit'])->name('admin.posts.edit');
+     Route::get('/add/categories',[AdminController::class,'addCategories'])->name('admin.categories.add');
+
+     Route::get('/edit/{id}',[AdminController::class,'edit'])->name('admin.posts.edit'); 
+     Route::get('/edit/category/{id}',[AdminController::class,'editCategory'])->name('admin.category.edit'); 
+     
      Route::post('/add',[AdminController::class,'store'])->name('admin.posts.store');
+     Route::post('/add/categories',[AdminController::class,'storeCategories'])->name('admin.categories.store');
+     
      Route::delete('/del/{id}',[AdminController::class,'destroy'])->name('admin.posts.destroy');
+     Route::delete('/del/category/{id}',[AdminController::class,'destroyCategory'])->name('admin.category.destroy'); 
+     
+     Route::put('/update/category/{id}',[AdminController::class,'updateCategory'])->name('admin.category.update');
      Route::put('/update/{id}',[AdminController::class,'update'])->name('admin.posts.update');
+     
+
+
 });  
