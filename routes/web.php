@@ -14,8 +14,6 @@ use App\Http\Controllers\{PostsController,AdminController};
 |
 */
 
-Route::get('/',[PostsController::class,'show'])->name('posts.show');
-
 Route::prefix('/admin')->group(function(){
      Route::get('/',[AdminController::class,'show'])->name('admin.show');
 
@@ -37,3 +35,6 @@ Route::prefix('/admin')->group(function(){
 
 
 });  
+
+Route::get('/',[PostsController::class,'show'])->name('posts.show');
+Route::get('/{id}',[PostsController::class,'showPost'])->name('post.show');

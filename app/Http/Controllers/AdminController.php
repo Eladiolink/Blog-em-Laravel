@@ -13,7 +13,7 @@ class AdminController extends Controller
 {   
 
     public function show(){
-        $posts=DB::table('posts')->paginate(3);
+        $posts=DB::table('posts')->paginate(5);
         $categories=Categories::get();
         return view('admin.show',['posts'=>$posts,'categories'=>$categories]);
     }

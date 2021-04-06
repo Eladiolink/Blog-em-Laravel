@@ -11,4 +11,9 @@ class PostsController extends Controller
         $posts=Posts::get();
         return view('posts.show',["posts"=>$posts]);
     }
+
+    public function showPost($id){
+        $post=Posts::where("id",$id)->first();
+        return view("posts.showPost",['post'=>$post]);
+    }
 }

@@ -3,7 +3,7 @@
 @section('main')
 
 
-    <a href="{{route('admin.posts.add')}}">Adicionar Posts</a>
+      <a class="btn btn-success bg-warning" href="{{route('admin.show')}}">Gerenciamento</a>
       <div class="d-flex flex-wrap justify-content-around ">
         @foreach ($posts as $post)
         <div class="card mt-5" style="width: 18rem;">
@@ -14,7 +14,7 @@
          <div class="card-body">
            <h5 class="card-title">{{$post->title}}</h5>
            <p class="card-text">{{$post->resumo}}</p>
-           <a href="#" class="btn btn-primary">Ler mais...</a>
+           <a href='{{route("post.show",$post->id)}}' class="btn btn-primary">Ler mais...</a>
          </div>
         </div>
         @endforeach
