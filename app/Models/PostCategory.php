@@ -18,8 +18,29 @@ class PostCategory extends Model
             ];
             PostCategory::create($post_category);
          }
-           
+
+
+        }
+
+   
+        public static function updatePostCategory($postId,$categories){  
+        PostCategory::where('post_id',$postId)->delete();  
+        foreach($categories as $category){
+            $post_category=[
+                  "post_id"=>$postId,
+                "category_id"=>$category
+             ];
+              
+              PostCategory::create($post_category);
+          }
+        }  
         
         
+      
+        
+    
+
+
+
+
     }
-}

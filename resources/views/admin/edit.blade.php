@@ -3,8 +3,9 @@
 
 @section('main')
 
-  <form class="col-md-6 mx-auto" action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
+  <form class="col-md-6 mx-auto" action="{{route('admin.posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
      @csrf
+     @method('PUT')
 
      <input class="form-control" type="text" value="{{$post->title}}" name="title" placeholder="Titulo do Post">
      <textarea class="form-control mt-2" name="resumo"  cols="30" rows="2" placeholder="resumo">{{$post->resumo}}</textarea>

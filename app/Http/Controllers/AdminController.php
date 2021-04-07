@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use  App\Models\{Posts,PostCategory};
+use App\Http\Requests\UpdatePostRequest;
 
 class AdminController extends Controller
 {   
@@ -18,26 +19,28 @@ class AdminController extends Controller
         return view('admin.show',['posts'=>$posts,'categories'=>$categories]);
     }
 
+    
     public function create(){
         $categories=Categories::get();
 
         return view('admin.create',['categories'=>$categories]);
     }
-
     public function addCategories(){
         return view('admin.createCategories');
     }
     
+
+
     public function edit($id){
         $categories=Categories::get();
         $post=Posts::where('id',$id)->first();
         return view("admin.edit",["post"=>$post,"categories"=>$categories]);
     }
-
     public function editCategory($id){
         $category=Categories::where('id',$id)->first();
         return view("admin.editCategories",["category"=>$category]);
     }
+
 
     public function store(Request $request){
         
@@ -45,8 +48,7 @@ class AdminController extends Controller
 
         return redirect()->route('posts.show');
      
-    }
-    
+    } 
     public function storeCategories(Request $request){
       $category=Categories::create($request->only('category'));
 
@@ -56,6 +58,7 @@ class AdminController extends Controller
 
     }
     
+
     public function updateCategory(Request $request,$id){
         $category=Categories::where('id',$id)->update(['category'=>$request->category]);
 
@@ -63,6 +66,12 @@ class AdminController extends Controller
              return redirect()->route('admin.show');
         }
     }
+    public function update(UpdatePostRequest $request,$id){
+         Posts::updatePost($request,$id);
+         return redirect()->route('admin.show');
+        
+    }
+
     public function destroy($id){
             $post= Posts::where('id',$id)->first();
             PostCategory::where('post_id',$id)->delete();
@@ -71,7 +80,6 @@ class AdminController extends Controller
    
             return redirect()->back();
     }
-
     public function destroyCategory($id){
            $category_posts= PostCategory::where('category_id',$id)->delete();   
            Categories::where("id",$id)->delete();

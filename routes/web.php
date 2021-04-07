@@ -29,8 +29,9 @@ Route::prefix('/admin')->group(function(){
      Route::delete('/del/{id}',[AdminController::class,'destroy'])->name('admin.posts.destroy');
      Route::delete('/del/category/{id}',[AdminController::class,'destroyCategory'])->name('admin.category.destroy'); 
      
-     Route::put('/update/category/{id}',[AdminController::class,'updateCategory'])->name('admin.category.update');
      Route::put('/update/{id}',[AdminController::class,'update'])->name('admin.posts.update');
+     Route::put('/update/category/{id}',[AdminController::class,'updateCategory'])->name('admin.category.update');
+    
      
 
 
