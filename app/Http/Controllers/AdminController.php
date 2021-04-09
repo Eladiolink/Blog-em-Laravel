@@ -43,7 +43,7 @@ class AdminController extends Controller
 
 
     public function store(Request $request){
-        
+        //dd($request->all());
         Posts::addPost($request);
 
         return redirect()->route('posts.show');

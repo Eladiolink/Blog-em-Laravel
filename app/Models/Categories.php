@@ -9,4 +9,8 @@ class Categories extends Model
 {
     use HasFactory;
     protected $fillable=['category'];
+
+    public function posts(){
+        return $this->belongsToMany(Posts::class)->withTimestamps();
+    }
 }

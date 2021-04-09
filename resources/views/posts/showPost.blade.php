@@ -12,8 +12,12 @@
             </main>
             <article class="col-3">
               <h3 class="mt-5">Categorias:</h3>
+            
+
+             @foreach ($post->categories as $categories)
+             <h6>{{$categories->category}}</h6>
+             @endforeach
              
-              <h6></h6>
             </article>
       </div>
       

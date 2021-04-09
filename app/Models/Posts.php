@@ -14,14 +14,16 @@ class Posts extends Model
 
     public static function addPost(Request $request){
         $categories=$request->except('title','resumo','_token','image','body');
+
         $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
         $post=$request->only('title','resumo','body');
         $post['image']=$nameFile;
+       
         
         if($request->image->isValid()){
           $file =  $request->image->storeAs('posts',$nameFile);
           $postBD=Posts::create($post);
-          PostCategory::addPostCategory($postBD->id,$categories);
+          $postBD->categories()->create($categories);
         }else{
             return false;
         }
@@ -51,7 +53,7 @@ class Posts extends Model
         
     }
 
-    public static function getCategories(){
-        //return this->belongsToMany(Categories::class,'post_categories','post_id','category_id');
+    public function categories(){
+        return $this->belongsToMany(Categories::class)->withTimestamps();;
     }
 }
