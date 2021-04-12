@@ -43,12 +43,12 @@ class AdminController extends Controller
 
 
     public function store(Request $request){
-        //dd($request->all());
         Posts::addPost($request);
 
         return redirect()->route('posts.show');
      
     } 
+
     public function storeCategories(Request $request){
       $category=Categories::create($request->only('category'));
 
@@ -66,6 +66,7 @@ class AdminController extends Controller
              return redirect()->route('admin.show');
         }
     }
+
     public function update(UpdatePostRequest $request,$id){
          Posts::updatePost($request,$id);
          return redirect()->route('admin.show');
@@ -73,11 +74,12 @@ class AdminController extends Controller
     }
 
     public function destroy($id){
-            $post= Posts::where('id',$id)->first();
-            PostCategory::where('post_id',$id)->delete();
-            Posts::where('id',$id)->delete();
-            Storage::delete("posts/".$post->image);
-   
+            DB::beginTransaction();
+             $post= Posts::find($id);
+             $post->categories()->delete();
+             $post->delete();
+             Storage::delete("posts/".$post->image);
+            DB::Commit();
             return redirect()->back();
     }
     public function destroyCategory($id){

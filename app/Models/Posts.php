@@ -13,43 +13,37 @@ class Posts extends Model
     use HasFactory;
 
     public static function addPost(Request $request){
-        $categories=$request->except('title','resumo','_token','image','body');
-
-        $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
         $post=$request->only('title','resumo','body');
-        $post['image']=$nameFile;
-       
-        
-        if($request->image->isValid()){
-          $file =  $request->image->storeAs('posts',$nameFile);
-          $postBD=Posts::create($post);
-          $postBD->categories()->create($categories);
-        }else{
-            return false;
-        }
 
-            return true;
+        if($request->has('image')){
+          $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
+          $post['image']=$nameFile;
+          $file =  $request->image->storeAs('posts',$nameFile);
+        }
+          
+        $postBD=Posts::create($post);
+
+        if($request->has('category')){
+           $postBD->categories()->sync($request->category);
+        } 
        
     }
 
     public static function updatePost($request,$id){
-        $categories=$request->except('title','resumo','_token','image','body','_method');
-        $post=$request->only('title','resumo','body');
-
-       
         
-        if($request->image != null){
-         $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
+         $post=$request->only('title','resumo','body');
+
+        if($request->has('image')){
+          $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
           $post['image']=$nameFile;
           $file =  $request->image->storeAs('posts',$nameFile);
         }
+          
+        $postBD=Posts::where('id',$id)->update($post);
 
-         $postBD=Posts::where('id',$id)->update($post);
-         
-         if($categories!=null){
-            PostCategory::updatePostCategory($id,$categories);
-         }
-
+        if($request->has('category')){
+           $postBD->categories()->sync($request->category);
+        } 
         
     }
 

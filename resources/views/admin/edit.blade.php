@@ -15,14 +15,16 @@
      <div class="mt-2">
       <textarea class="mt-2 form-control" name="body" id="mytextarea" cols="30" rows="50"></textarea>
      </div>
-
+ 
      <div class="mt-2">
       Categorias: <br>
-      @foreach ($categories as $category)
-      <div>
-        <label for=""><input type="checkbox" name="{{$loop->index}}" value="{{$category->id}}" id=""> {{$category->category}}</label>
-      </div>
-      @endforeach
+      <select class="form-control" name="category[]" id="category" multiple>
+        <option value="" disabled>Selecione a Categoria</option>
+        @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{$category->category}}</option>
+        @endforeach
+      </select>
+
     </div>
   <button class="btn btn-success mt-2" type="submit">Enviar</button>
   </form>
@@ -30,6 +32,8 @@
   <div style="display: none" id="content">
     {!! $post->body !!}
   </div>
+
+  {{-- Scripts JS --}}
   <script src="{{asset('node_modules/tinymce/tinymce.js')}}" referrerpolicy="origin"></script>
   <script>
     var text=document.getElementById('content').innerHTML;
