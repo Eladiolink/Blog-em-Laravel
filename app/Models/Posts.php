@@ -29,24 +29,13 @@ class Posts extends Model
        
     }
 
-    public static function updatePost($request,$id){
-        
-         $post=$request->only('title','resumo','body');
+    public static function image(Request $request){
+      $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
+      $file =  $request->image->storeAs('posts',$nameFile);
 
-        if($request->has('image')){
-          $nameFile= Str::slug($request->title,'-')."-". Str::slug(date('Y-m-d H:i:s')) . "." . $request->image->getClientOriginalExtension();
-          $post['image']=$nameFile;
-          $file =  $request->image->storeAs('posts',$nameFile);
-        }
-          
-        $postBD=Posts::where('id',$id)->update($post);
-
-        if($request->has('category')){
-           $postBD->categories()->sync($request->category);
-        } 
-        
+      return $nameFile;
     }
-
+    
     public function categories(){
         return $this->belongsToMany(Categories::class)->withTimestamps();;
     }

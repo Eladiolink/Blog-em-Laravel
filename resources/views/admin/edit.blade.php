@@ -6,7 +6,7 @@
   <form class="col-md-6 mx-auto" action="{{route('admin.posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
      @csrf
      @method('PUT')
-
+     <input type="hidden" name="id" value="{{$post->id}}">
      <input class="form-control" type="text" value="{{$post->title}}" name="title" placeholder="Titulo do Post">
      <textarea class="form-control mt-2" name="resumo"  cols="30" rows="2" placeholder="resumo">{{$post->resumo}}</textarea>
      

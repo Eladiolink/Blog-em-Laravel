@@ -68,22 +68,40 @@ class AdminController extends Controller
     }
 
     public function update(UpdatePostRequest $request,$id){
-         Posts::updatePost($request,$id);
+          
+        $post=$request->except('_token','_method');
+        
+        if(isset($post['image'])){
+            $post['image']=Posts::image($request);
+        }
+
+         DB::beginTransaction();
+           $postDB=Posts::find($request->id);
+           $postDB->update($post);
+           //dd($post->category);
+           //$postDB->categories()->update($post->category);
+              
+         DB::Commit();
+
+
          return redirect()->route('admin.show');
         
     }
 
     public function destroy($id){
             DB::beginTransaction();
+
              $post= Posts::find($id);
-             $post->categories()->delete();
+             //$post->categories()->delete();
              $post->delete();
              Storage::delete("posts/".$post->image);
+
             DB::Commit();
             return redirect()->back();
     }
+
     public function destroyCategory($id){
-           $category_posts= PostCategory::where('category_id',$id)->delete();   
+           //$category_posts= PostCategory::where('category_id',$id)->delete();   
            Categories::where("id",$id)->delete();
         
 
