@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+ use Illuminate\Support\Str;
 
 class Posts extends Model
 {   
@@ -37,6 +37,6 @@ class Posts extends Model
     }
     
     public function categories(){
-        return $this->belongsToMany(Categories::class)->withTimestamps();;
+        return $this->belongsToMany(Categories::class)->withTimestamps();
     }
 }

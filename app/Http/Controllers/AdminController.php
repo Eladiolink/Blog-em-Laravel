@@ -78,8 +78,7 @@ class AdminController extends Controller
          DB::beginTransaction();
            $postDB=Posts::find($request->id);
            $postDB->update($post);
-           //dd($post->category);
-           //$postDB->categories()->update($post->category);
+           $postDB->categories()->sync($request->category);
               
          DB::Commit();
 
@@ -90,20 +89,22 @@ class AdminController extends Controller
 
     public function destroy($id){
             DB::beginTransaction();
-
              $post= Posts::find($id);
-             //$post->categories()->delete();
-             $post->delete();
              Storage::delete("posts/".$post->image);
-
+             $post->categories()->detach();
+             $post->delete();
             DB::Commit();
             return redirect()->back();
     }
 
     public function destroyCategory($id){
-           //$category_posts= PostCategory::where('category_id',$id)->delete();   
-           Categories::where("id",$id)->delete();
-        
+           
+            DB::beginTransaction();
+             $category= Categories::find($id); 
+             $category->posts()->detach();
+             $category->delete();
+            DB::Commit();
+            return redirect()->back();
 
            return redirect()->back();
     }
