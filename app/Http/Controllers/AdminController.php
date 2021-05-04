@@ -36,6 +36,8 @@ class AdminController extends Controller
         $post=Posts::where('id',$id)->first();
         return view("admin.edit",["post"=>$post,"categories"=>$categories]);
     }
+
+    
     public function editCategory($id){
         $category=Categories::where('id',$id)->first();
         return view("admin.editCategories",["category"=>$category]);

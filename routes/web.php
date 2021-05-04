@@ -33,5 +33,12 @@ Route::prefix('/admin')->group(function(){
      Route::put('/update/category/{id}',[AdminController::class,'updateCategory'])->name('admin.category.update');
 });
 
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//      return view('dashboard');
+//  })->name('dashboard');
+ 
+ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[PostsController::class,'show'])->name('dashboard');
+
 Route::get('/',[PostsController::class,'show'])->name('posts.show');
 Route::get('/{id}',[PostsController::class,'showPost'])->name('post.show');
+

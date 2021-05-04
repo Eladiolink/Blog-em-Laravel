@@ -21,5 +21,5 @@
             </article>
       </div>
       
-      <a class="btn btn-success" href="{{route('posts.show')}}">Voltar a página principal</a>
+      {{-- <a class="btn btn-success" href="{{route('posts.show')}}">Voltar a página principal</a> --}}
 @endsection

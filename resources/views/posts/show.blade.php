@@ -1,10 +1,11 @@
 @extends('layouts.layout')
 
 @section('main')
+ 
 
-
-      <a class="btn btn-success bg-warning" href="{{route('admin.show')}}">Gerenciamento</a>
       <div class="d-flex flex-wrap justify-content-around ">
+        
+
         @foreach ($posts as $post)
         <div class="card mt-5" style="width: 18rem;">
         @if (url("storage/posts/{$post->image}"))

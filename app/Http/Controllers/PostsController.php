@@ -8,6 +8,7 @@ use App\Models\{Posts,PostCategory,Categories};
 class PostsController extends Controller
 {
     public function show(){
+       
         $posts=Posts::get();
         return view('posts.show',["posts"=>$posts]);
     }
